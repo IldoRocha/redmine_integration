@@ -1,5 +1,7 @@
+from importlib_metadata import version
 from redminelib import Redmine
 import datetime
+import json
 
 OBJETO = {
     "status": {
@@ -151,19 +153,72 @@ VERSAO = {
     "name": "999.999.999.999"
 }
 
-CriarTarefa(
-    #parentid = '2081918',
+class Tarefa:
+    def __init__(
+        self, 
+        assunto, 
+        descricao = '', 
+        tipo = 'desenvolvimento', 
+        tarefaprincipal = None):
+        self.assunto = assunto,
+        if descricao > '':
+            self.descricao = descricao
+        else:
+            self.descricao = assunto
+        self.tipo = tipo
+        self.tarefaprincipal = tarefaprincipal
+
+class Contexto:
+    def __init__(
+        self,
+        id,
+        status,
+        priority,
+        agent,
+        category,
+        version,
+        initialdate,
+        enddate):
+        self.id = id,
+        self.status = status,
+        self.priority = priority,
+        self.agent = agent,
+        self.category = category,
+        self.version = version,
+        self.initialdate = initialdate,
+        self.enddate = enddate
+
+tarefaJson = json.load("tarefas.json")
+
+for tarefaItem in tarefaJson:
+    tarefa = Tarefa(assunto = tarefaItem['assunto'],
+                descricao = tarefaItem['descrucai'],
+                tipo = tarefaItem['tipo'],
+                tarefaprincipal = tarefaItem['tarefaprincipal'])
+
+contexto = Contexto(
     id = PROJETOQUIU,
-    subject = 'Tarefa demonstração',
-    description = 'Tarefa de demonstração criada automaticamente pelo python\nLinha 2',
-    status = OBJETO[STATUS][DESENV], # OBJETO[STATUS][DESENV] | OBJETO[STATUS][BACKLOG]
-    priority = OBJETO[PRIORIDADE][BAIXA], # OBJETO[STATUS][ALTA] | OBJETO[STATUS][BAIXA]
+    status = OBJETO[STATUS][DESENV], # OBJETO[STATUS][DESENV] | OBJETO[STATUS][BACKLOG]     priority = OBJETO[PRIORIDADE][BAIXA], # OBJETO[STATUS][ALTA] | OBJETO[STATUS][BAIXA],
+    priority = OBJETO[PRIORIDADE][BAIXA], # OBJETO[STATUS][ALTA] | OBJETO[STATUS][BAIXA],
     agent = AGENTEQUIU,
     category = PRODUTOQUIU,
     version = VERSAO[ID],
     initialdate = datetime.date(2022, 5, 6),
-    enddate = datetime.date(2022, 5, 19),
-    tracker = OBJETO[TIPO][DESENV],
+    enddate = datetime.date(2022, 5, 19))
+
+CriarTarefa(
+    #parentid = '2081918',
+    id = PROJETOQUIU,
+    subject = tarefa.assunto,
+    description = tarefa.descricao,
+    status = contexto.status,
+    priority = contexto.priority,
+    agent = contexto.agent,
+    category = contexto.category,
+    version = contexto.version,
+    initialdate = contexto.initialdate,
+    enddate = contexto.enddate,
+    tracker = tarefa.tipo,
     # custom = getCustomFields(VERSAO, Tamanho = "")    
     custom = getCustom2(VERSAO)
 )
