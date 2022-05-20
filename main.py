@@ -1,3 +1,6 @@
+from encodings import utf_8_sig
+from logging import exception
+from tkinter import E
 from importlib_metadata import version
 from redminelib import Redmine
 import datetime
@@ -140,7 +143,10 @@ def CriarTarefa(id, subject, description, status, priority, agent, category, ver
     issue.custom_fields         = custom
     issue.parent_issue_id       = parent_id
     if save:
-        issue.save()
+        try:
+            issue.save()
+        except Exception as E:
+            print(E)
 
 REDMINEKEY = "7191d4dd9cc2fa5270a8335db1945ed75c3a6f89"
 REDMINEURL = 'https://redmine.questor.com.br'
@@ -176,25 +182,21 @@ class Contexto:
         priority,
         agent,
         category,
-        version,
-        initialdate,
-        enddate):
+        version
+        # initialdate,
+        # enddate
+        ):
         self.id = id,
         self.status = status,
         self.priority = priority,
         self.agent = agent,
         self.category = category,
-        self.version = version,
-        self.initialdate = initialdate,
-        self.enddate = enddate
+        self.version = version
+        # self.initialdate = initialdate,
+        # self.enddate = enddate
 
-tarefaJson = json.load("tarefas.json")
-
-for tarefaItem in tarefaJson:
-    tarefa = Tarefa(assunto = tarefaItem['assunto'],
-                descricao = tarefaItem['descrucai'],
-                tipo = tarefaItem['tipo'],
-                tarefaprincipal = tarefaItem['tarefaprincipal'])
+with open("teste.json", 'r', encoding="utf-8") as f:
+            tarefaJson = json.load(f)
 
 contexto = Contexto(
     id = PROJETOQUIU,
@@ -203,22 +205,34 @@ contexto = Contexto(
     agent = AGENTEQUIU,
     category = PRODUTOQUIU,
     version = VERSAO[ID],
-    initialdate = datetime.date(2022, 5, 6),
-    enddate = datetime.date(2022, 5, 19))
+    # initialdate = datetime.date(2022, 5, 6),
+    # enddate = datetime.date(2022, 5, 19)
+    )
 
-CriarTarefa(
+for tarefaItem in tarefaJson:
+    tarefa = Tarefa(assunto = tarefaItem['assunto'],
+                descricao = tarefaItem['descricao'],
+                tipo = tarefaItem['tipo'],
+                tarefaprincipal = tarefaItem['tarefaprincipal'])
+    tarefa.assunto
+    tarefa.descricao
+    tarefa.tipo
+    tarefa.tarefaprincipal
+    CriarTarefa(
     #parentid = '2081918',
     id = PROJETOQUIU,
     subject = tarefa.assunto,
     description = tarefa.descricao,
-    status = contexto.status,
-    priority = contexto.priority,
-    agent = contexto.agent,
+    status = OBJETO[STATUS][DESENV],
+    priority = '3',
+    agent = AGENTEQUIU,
     category = contexto.category,
     version = contexto.version,
-    initialdate = contexto.initialdate,
-    enddate = contexto.enddate,
-    tracker = tarefa.tipo,
+    initialdate = datetime.date(2022, 5, 20),
+    enddate = datetime.date(2022, 6, 2),
+    # initialdate = contexto.initialdate,
+    # enddate = contexto.enddate,
+    tracker =  OBJETO[TIPO][tarefa.tipo],
     # custom = getCustomFields(VERSAO, Tamanho = "")    
     custom = getCustom2(VERSAO)
 )
