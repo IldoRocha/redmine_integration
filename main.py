@@ -6,6 +6,11 @@ from redminelib import Redmine
 import datetime
 import json
 
+from dotenv import load_dotenv
+load_dotenv()
+
+REDMINEKEY = os.getenv('REDMINEKEY')
+
 OBJETO = {
     "status": {
         "desenvolvimento": 36,
@@ -147,8 +152,7 @@ def CriarTarefa(id, subject, description, status, priority, agent, category, ver
             issue.save()
         except Exception as E:
             print(E)
-
-REDMINEKEY = "7191d4dd9cc2fa5270a8335db1945ed75c3a6f89"
+            
 REDMINEURL = 'https://redmine.questor.com.br'
 
 redmine     = Redmine(REDMINEURL,
@@ -183,8 +187,6 @@ class Contexto:
         agent,
         category,
         version
-        # initialdate,
-        # enddate
         ):
         self.id = id,
         self.status = status,
@@ -200,7 +202,7 @@ with open("teste.json", 'r', encoding="utf-8") as f:
 
 contexto = Contexto(
     id = PROJETOQUIU,
-    status = OBJETO[STATUS][DESENV], # OBJETO[STATUS][DESENV] | OBJETO[STATUS][BACKLOG]     priority = OBJETO[PRIORIDADE][BAIXA], # OBJETO[STATUS][ALTA] | OBJETO[STATUS][BAIXA],
+    status = OBJETO[STATUS][DESENV], # OBJETO[STATUS][DESENV] | OBJETO[STATUS][BACKLOG]     
     priority = OBJETO[PRIORIDADE][BAIXA], # OBJETO[STATUS][ALTA] | OBJETO[STATUS][BAIXA],
     agent = AGENTEQUIU,
     category = PRODUTOQUIU,
@@ -219,7 +221,7 @@ for tarefaItem in tarefaJson:
     tarefa.tipo
     tarefa.tarefaprincipal
     CriarTarefa(
-    #parentid = '2081918',
+    #parentid = '',
     id = PROJETOQUIU,
     subject = tarefa.assunto,
     description = tarefa.descricao,
