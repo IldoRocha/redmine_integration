@@ -1,42 +1,32 @@
-from encodings import utf_8_sig
-from logging import exception
-from tkinter import E
-from importlib_metadata import version
 from redminelib import Redmine
-import datetime
 import json
-
-from dotenv import load_dotenv
-load_dotenv()
-
-REDMINEKEY = os.getenv('REDMINEKEY')
 
 OBJETO = {
     "status": {
-        "desenvolvimento": 36,
-        "sprint backlog": 54,
-        "pronto": 60
+        "desenvolvimento": "x",
+        "sprint backlog": "x",
+        "pronto": "x"
     },
     "prioridade": {
-        "crítica": 1,
-        "alta": 2,
-        "baixa": 3
+        "crítica": "x",
+        "alta": "x",
+        "baixa": "x"
     },
     "tipo": {
-        "atividade": 49,
-        "história": 102,
-        "análise técnica": 106,
-        "desenvolvimento": 107,
-        "teste funcional": 108,
-        "refatoração": "?",
-        "regra negócio": "?",
-        "teste unitário": "?"
+        "atividade": "x",
+        "história": "x",
+        "análise técnica": "x",
+        "desenvolvimento": "x",
+        "teste funcional": "x",
+        "refatoração": "x",
+        "regra negócio": "x",
+        "teste unitário": "x"
     }
 }
 
-PROJETOQUIU = 587
-AGENTEQUIU = 1834
-PRODUTOQUIU = 34446
+PROJETO = "x"
+AGENTE = "x"
+PRODUTO = "x"
 
 STATUS = "status"
 DESENV = "desenvolvimento"
@@ -61,78 +51,50 @@ VALUE = 'value'
 REDMINE = 'https://redmine.questor.com.br'
 
 #region GetCustomFields
-def CF_GetVersaoFinalizacao(Versao):
-    return {ID: 62,
-          NAME: 'Versão Finalização',
+def CF_GetCustomFieldX(Versao):
+    return {ID: 'x',
+          NAME: 'Custom Field x',
          VALUE: Versao['name']}
-def CF_GetDocumentacaoIndefinida():
-    return {ID: 33,
-          NAME: 'Ajuda',
-         VALUE: 'Documentação indefinida'}
-def CF_GetIntervencao():
-    return {ID: 73,
-          NAME: 'Intervenção',
-         VALUE: '0'}
-def CF_GetAntecipado():
-    return {ID: 144,
-          NAME: 'Antecipado',
-         VALUE: 'Não'}
-def CF_GetDLLHistoria():
-    return {ID: 71,
-          NAME: 'DLL',
-         VALUE: '0'}
-def CF_GetTamanhoEstimado():
-    return {ID: 127,
-          NAME: 'Tamanho estimado',
-         VALUE: 'P'}
+def CF_GetCustomFieldY():
+    return {ID: 'x',
+          NAME: 'Custom Field y',
+         VALUE: 'Custom Field y'}
+def CF_GetCustomFieldZ():
+    return {ID: 'x',
+          NAME: 'Custom Field z',
+         VALUE: 'Custom Field z'}
 #endregion
 
 def getCustom2(Versao):
     return [
-        CF_GetVersaoFinalizacao(Versao),
-        CF_GetDocumentacaoIndefinida(),
-        CF_GetIntervencao(),
-        CF_GetAntecipado(),
-        CF_GetDLLHistoria(),
-        CF_GetTamanhoEstimado()
+        CF_GetCustomFieldX(Versao),
+        CF_GetCustomFieldY(),
+        CF_GetCustomFieldZ()
     ]
-
-
+        
 def getCustomFields(Versao, Tamanho = 'P', DLL = '0'):
     return [
     {
-        'ID': 62,
-        'NAME': 'Versão Finalização',
+        'ID': 'x',
+        'NAME': 'Custom Field X',
         'VALUE': Versao[NAME]
     },
     {
-        'ID': 33,
-        'NAME': 'Ajuda',
-        'VALUE': 'Documentação indefinida'
+        'ID': 'y',
+        'NAME': 'Custom Field Y',
+        'VALUE': 'Custom Field Y'
     },
     {
-        'ID': 73,
-        'NAME': 'Intervenção',
-        'VALUE': '0'
-    },
-    {
-        'ID': 144,
-        'NAME': 'Antecipado',
-        'VALUE': 'Não'
-    },
-    {
-        'ID': 71,
-        'NAME': 'DLL',
-        'VALUE': DLL
-    },
-    {
-        'ID': 127,
-        'NAME': 'Tamanho estimado',
-        'VALUE': Tamanho
+        'ID': 'z',
+        'NAME': 'Custom Field Z',
+        'VALUE': 'Custom Field Z'
     }]
 
 # OBJETO[STATUS][DESENV]
 def CriarTarefa(id, subject, description, status, priority, agent, category, version, initialdate, enddate, tracker, custom, parent_id = None, save = True):
+            
+    print(custom)
+
     issue = redmine.issue.new()
     issue.project_id            = id
     issue.subject               = subject
@@ -148,29 +110,22 @@ def CriarTarefa(id, subject, description, status, priority, agent, category, ver
     issue.custom_fields         = custom
     issue.parent_issue_id       = parent_id
     if save:
-        try:
-            issue.save()
-        except Exception as E:
-            print(E)
-            
+        issue.save()
+
+REDMINEKEY = "x"
 REDMINEURL = 'https://redmine.questor.com.br'
 
 redmine     = Redmine(REDMINEURL,
 key         = REDMINEKEY)
 
 VERSAO = {
-    "id": 4824,
-    "name": "999.999.999.999"
+    "id": "x",
+    "name": "x"
 }
 
 class Tarefa:
-    def __init__(
-        self, 
-        assunto, 
-        descricao = '', 
-        tipo = 'desenvolvimento', 
-        tarefaprincipal = None):
-        self.assunto = assunto,
+    def __init__(self, assunto, descricao = '', tipo = 'desenvolvimento', tarefaprincipal = ''):
+        self.assunto = assunto
         if descricao > '':
             self.descricao = descricao
         else:
@@ -180,61 +135,59 @@ class Tarefa:
 
 class Contexto:
     def __init__(
-        self,
-        id,
-        status,
-        priority,
-        agent,
-        category,
-        version
-        ):
-        self.id = id,
-        self.status = status,
-        self.priority = priority,
-        self.agent = agent,
-        self.category = category,
+            self,
+            id,
+            status,
+            priority,
+            agent,
+            category,
+            version,
+            initialdate,
+            enddate):
+        self.id = id
+        self.status = status
+        self.priority = priority
+        self.agent = agent
+        self.category = category
         self.version = version
-        # self.initialdate = initialdate,
-        # self.enddate = enddate
+        self.initialdate = initialdate
+        self.enddate = enddate
 
-with open("teste.json", 'r', encoding="utf-8") as f:
+with open("tarefas.json", 'r', encoding="utf-8") as f:
             tarefaJson = json.load(f)
 
 contexto = Contexto(
-    id = PROJETOQUIU,
-    status = OBJETO[STATUS][DESENV], # OBJETO[STATUS][DESENV] | OBJETO[STATUS][BACKLOG]     
-    priority = OBJETO[PRIORIDADE][BAIXA], # OBJETO[STATUS][ALTA] | OBJETO[STATUS][BAIXA],
-    agent = AGENTEQUIU,
-    category = PRODUTOQUIU,
+    id = PROJETO,
+    status = str(OBJETO[STATUS][DESENV]), 
+    priority = OBJETO[PRIORIDADE][BAIXA], 
+    agent = AGENTE,
+    category = PRODUTO,
     version = VERSAO[ID],
-    # initialdate = datetime.date(2022, 5, 6),
-    # enddate = datetime.date(2022, 5, 19)
+    initialdate = "yyyy-mm-dd",
+    enddate = "yyyy-mm-dd"
     )
 
-for tarefaItem in tarefaJson:
-    tarefa = Tarefa(assunto = tarefaItem['assunto'],
-                descricao = tarefaItem['descricao'],
-                tipo = tarefaItem['tipo'],
-                tarefaprincipal = tarefaItem['tarefaprincipal'])
-    tarefa.assunto
-    tarefa.descricao
-    tarefa.tipo
-    tarefa.tarefaprincipal
+# print(json.dumps(tarefaJson, indent=4, sort_keys=True))
+
+for TarefaObjeto in tarefaJson:
+    tarefa = tarefaJson[TarefaObjeto]
+    tarefa = Tarefa(
+                assunto = tarefa['Subject'],
+                descricao = tarefa['Description'],
+                tipo = tarefa['Tracker'],
+                tarefaprincipal = tarefa['Parent'])
+
     CriarTarefa(
-    #parentid = '',
-    id = PROJETOQUIU,
+    id = PROJETO,
     subject = tarefa.assunto,
     description = tarefa.descricao,
-    status = OBJETO[STATUS][DESENV],
-    priority = '3',
-    agent = AGENTEQUIU,
+    status = contexto.status,
+    priority = contexto.priority,
+    agent = contexto.agent,
     category = contexto.category,
     version = contexto.version,
-    initialdate = datetime.date(2022, 5, 20),
-    enddate = datetime.date(2022, 6, 2),
-    # initialdate = contexto.initialdate,
-    # enddate = contexto.enddate,
+    initialdate = contexto.initialdate,
+    enddate = contexto.enddate,
     tracker =  OBJETO[TIPO][tarefa.tipo],
-    # custom = getCustomFields(VERSAO, Tamanho = "")    
     custom = getCustom2(VERSAO)
 )

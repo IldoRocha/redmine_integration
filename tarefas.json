@@ -1,14 +1,26 @@
-[
-    {
-        "assunto": "Tarefa x",
-        "descricao": "analise técnica",
-        "tipo": "análise técnica",
-        "tarefaprincipal": "9999999"
+{
+    "Tarefa X": {
+        "Id": "Id x",
+        "Subject": "Assunto x",
+        "Description": "Descricao x",
+        "Status": "Status",
+        "Priority": "Priority",
+        "Agent": "Agent",
+        "Category": "Category",
+        "Version": "Version",
+        "Tracker": "desenvolvimento",
+        "Parent": ""
     },
-    {
-        "assunto": "Tarefa y",
-        "descricao": "desenvolvimento",
-        "tipo": "desenvolvimento",
-        "tarefaprincipal": "9999999"
+    "Tarefa Y": {
+        "Id": "Id y",
+        "Subject": "Assunto x",
+        "Description": "Descricao x",
+        "Status": "Status",
+        "Priority": "Priority",
+        "Agent": "Agent",
+        "Category": "Category",
+        "Version": "Version",
+        "Tracker": "desenvolvimento",
+        "Parent": ""
     }
-]
+}
