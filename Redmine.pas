@@ -54,10 +54,12 @@ type
     ActDuplicar: TAction;
     FDMemTable1TarefaPai: TIntegerField;
     Button2: TButton;
+    Button3: TButton;
     procedure Button1Click(Sender: TObject);
     procedure ActDuplicarExecute(Sender: TObject);
     procedure Configurar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     function GetTitulo: string; 
     function GetDescricao: string; 
@@ -72,7 +74,7 @@ var
 
 implementation
 
-  uses ShellApi, frmConfig, JsonUtils, Vcl.Dialogs;
+  uses ShellApi, frmConfig, JsonUtils, Vcl.Dialogs, Importar;
 
 {$R *.dfm}
 
@@ -133,6 +135,21 @@ begin
 
 //  if MessageDlg('Deseja executar o Redmine agora?', mtConfirmation, [mbYes, mbNo],0) = mrYES then
 //    ShellExecute(ExecutaroPython);
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var
+  i: Integer;
+begin
+  if frmImportar.ShowModal = mrOk then
+  begin
+    for i := 0 to (frmImportar.Memo1.Lines.Count -1) do
+    begin
+      FDMemTable1.Insert;
+      FDMemTable1Titulo.AsString := frmImportar.Memo1.Lines.Strings[i];
+      FDMemTable1Descricao.AsString := frmImportar.Memo1.Lines.Strings[i];
+    end;
+  end;
 end;
 
 procedure TForm1.Configurar(Sender: TObject);

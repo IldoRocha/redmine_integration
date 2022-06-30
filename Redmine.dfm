@@ -68,7 +68,6 @@ object Form1: TForm1
     Caption = 'Enviar'
     TabOrder = 1
     OnClick = Button1Click
-    ExplicitTop = 407
   end
   object BitBtn1: TBitBtn
     Left = 88
@@ -86,7 +85,6 @@ object Form1: TForm1
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 2
-    ExplicitTop = 408
   end
   object Button2: TButton
     Left = 812
@@ -97,8 +95,15 @@ object Form1: TForm1
     Caption = 'Configurar'
     TabOrder = 3
     OnClick = Configurar
-    ExplicitLeft = 888
-    ExplicitTop = 407
+  end
+  object Button3: TButton
+    Left = 731
+    Top = 423
+    Width = 75
+    Height = 25
+    Caption = 'Importar'
+    TabOrder = 4
+    OnClick = Button3Click
   end
   object FDMemTable1: TFDMemTable
     Active = True
@@ -139,7 +144,7 @@ object Form1: TForm1
     Left = 48
     Top = 80
     Content = {
-      414442530F00223BCA020000FF00010001FF02FF03040016000000460044004D
+      414442530F00A33CCA020000FF00010001FF02FF03040016000000460044004D
       0065006D005400610062006C006500310005000A0000005400610062006C0065
       00060000000000070000080032000000090000FF0AFF0B040008000000540069
       0070006F000500080000005400690070006F000C00010000000E000D000F0014
