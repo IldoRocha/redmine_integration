@@ -1,4 +1,3 @@
-from distutils.command.config import config
 from redminelib import Redmine
 import json
 
