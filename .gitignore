@@ -1,2 +1,4 @@
 venv/
 build/
+Win32/
+PRedmine.res
