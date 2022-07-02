@@ -3,18 +3,31 @@ unit Importar;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls;
 
 type
   TfrmImportar = class(TForm)
-    Edit1: TEdit;
+    edtCaminhoArquivo: TEdit;
     Button1: TButton;
-    Memo1: TMemo;
+    ListaTxt: TMemo;
     Button2: TButton;
-    OpenDialog1: TOpenDialog;
+    dlgImportar: TOpenDialog;
+    Label1: TLabel;
+    Button3: TButton;
+    Button4: TButton;
     procedure Button2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,17 +43,27 @@ implementation
 
 procedure TfrmImportar.Button1Click(Sender: TObject);
 begin
-  if OpenDialog1.Execute then
+  if dlgImportar.Execute then
   begin
-    Memo1.Lines.LoadFromFile(OpenDialog1.FileName);
-    Edit1.Text := OpenDialog1.FileName
+    ListaTxt.Lines.LoadFromFile(dlgImportar.FileName);
+    EdtCaminhoArquivo.Text := dlgImportar.FileName
   end;
 end;
 
 procedure TfrmImportar.Button2Click(Sender: TObject);
 begin
-  if FileExists(Edit1.Text) then
+  if ListaTxt.Lines.Count > 0 then
    ModalResult := mrOk;
+end;
+
+procedure TfrmImportar.Button3Click(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+procedure TfrmImportar.Button4Click(Sender: TObject);
+begin
+  ListaTxt.Clear;
 end;
 
 end.
