@@ -1,0 +1,13 @@
+﻿{            
+    "RedmineUrl": "www.",   
+    "RedmineKey": "78990000---9900990---998877",   
+    "IdProjeto": "{{IdQuiu}}",    
+    "IdVersao": "22.7.00",     
+    "Agent": "Agente Secreto",        
+    "NomeVersao": "22.7.0.0",   
+    "Status": "Concluído",       
+    "Categoria": "Teste",    
+    "Prioridade": "Alta",   
+    "DataInicial": "2022-07-18",  
+    "DataFinal": "2022-07-01"     
+}

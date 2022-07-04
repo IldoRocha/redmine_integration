@@ -1,4 +1,10 @@
-venv/
+.history/
+__history/
+__recovery/
 build/
+venv/
 Win32/
-PRedmine.res
+*.dcu
+*.dll
+*.exe
+*.res

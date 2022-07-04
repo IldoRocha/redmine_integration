@@ -2,8 +2,9 @@ program PRedmine;
 
 uses
   Vcl.Forms,
-  Redmine in 'Redmine.pas' {Form1},
-  frmConfig in 'frmConfig.pas' {frmConfiguracao},
+  Redmine in 'Redmine.pas' {frmMain},
+  Configurar in 'Configurar.pas' {frmConfiguracao},
+  Importar in 'Importar.pas' {frmImportar},
   JsonUtils in 'JsonUtils.pas';
 
 {$R *.res}
@@ -11,7 +12,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TfrmConfiguracao, frmConfiguracao);
+  Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmImportar, frmImportar);
   Application.Run;
 end.

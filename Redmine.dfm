@@ -1,8 +1,8 @@
-object Form1: TForm1
+object frmMain: TfrmMain
   Left = 0
   Top = 0
-  ClientHeight = 456
-  ClientWidth = 906
+  ClientHeight = 401
+  ClientWidth = 853
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,17 +11,18 @@ object Form1: TForm1
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  Position = poScreenCenter
   OnCreate = FormCreate
   DesignSize = (
-    906
-    456)
+    853
+    401)
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
-    Left = 2
-    Top = 5
-    Width = 896
-    Height = 415
+    Left = 4
+    Top = 39
+    Width = 843
+    Height = 323
     Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = DataSource1
     TabOrder = 0
@@ -30,6 +31,7 @@ object Form1: TForm1
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnKeyPress = DBGrid1KeyPress
     Columns = <
       item
         DropDownRows = 12
@@ -40,10 +42,11 @@ object Form1: TForm1
           'An'#225'lise T'#233'cnica'
           'An'#225'lise de Regra de Neg'#243'cio'
           'Desenvolvimento'
+          'Hist'#243'ria'
+          'Reuni'#227'o'
           'Teste Funcional'
-          'Teste Unit'#225'rio'
-          'Reuni'#227'o')
-        Width = 92
+          'Teste Unit'#225'rio')
+        Width = 128
         Visible = True
       end
       item
@@ -57,25 +60,29 @@ object Form1: TForm1
         FieldName = 'Descricao'
         Width = 414
         Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'TarefaPai'
+        Visible = True
       end>
   end
   object Button1: TButton
-    Left = 8
-    Top = 423
-    Width = 75
+    Left = 3
+    Top = 368
+    Width = 190
     Height = 25
+    Action = actEnviar
     Anchors = [akLeft, akBottom]
-    Caption = 'Enviar'
+    Caption = 'Preparar Para o Redmine (F9)'
     TabOrder = 1
-    OnClick = Button1Click
   end
   object BitBtn1: TBitBtn
-    Left = 88
-    Top = 424
+    Left = 3
+    Top = 8
     Width = 113
     Height = 25
     Action = ActDuplicar
-    Anchors = [akLeft, akBottom]
     Caption = 'Duplicar (Ctrl+D)'
     Default = True
     Font.Charset = DEFAULT_CHARSET
@@ -87,26 +94,43 @@ object Form1: TForm1
     TabOrder = 2
   end
   object Button2: TButton
-    Left = 812
-    Top = 423
-    Width = 75
+    Left = 747
+    Top = 5
+    Width = 99
     Height = 25
-    Anchors = [akRight, akBottom]
-    Caption = 'Configurar'
+    Action = actConfigurar
+    Anchors = [akTop, akRight]
     TabOrder = 3
-    OnClick = Configurar
   end
   object Button3: TButton
-    Left = 731
-    Top = 423
-    Width = 75
+    Left = 639
+    Top = 5
+    Width = 102
     Height = 25
-    Caption = 'Importar'
+    Action = actImportar
+    Anchors = [akTop, akRight]
     TabOrder = 4
-    OnClick = Button3Click
+  end
+  object ComboBoxTipoPadrao: TComboBox
+    Left = 122
+    Top = 8
+    Width = 145
+    Height = 21
+    TabOrder = 5
+  end
+  object chAlterarTipo: TCheckBox
+    Left = 273
+    Top = 8
+    Width = 97
+    Height = 17
+    Caption = 'Alterar o tipo'
+    Checked = True
+    State = cbChecked
+    TabOrder = 6
   end
   object FDMemTable1: TFDMemTable
     Active = True
+    AfterScroll = FDMemTable1AfterScroll
     FieldDefs = <
       item
         Name = 'Tipo'
@@ -144,7 +168,7 @@ object Form1: TForm1
     Left = 48
     Top = 80
     Content = {
-      414442530F00A33CCA020000FF00010001FF02FF03040016000000460044004D
+      414442530F000000CA020000FF00010001FF02FF03040016000000460044004D
       0065006D005400610062006C006500310005000A0000005400610062006C0065
       00060000000000070000080032000000090000FF0AFF0B040008000000540069
       0070006F000500080000005400690070006F000C00010000000E000D000F0014
@@ -219,8 +243,8 @@ object Form1: TForm1
     Top = 160
   end
   object MainMenu1: TMainMenu
-    Left = 96
-    Top = 328
+    Left = 56
+    Top = 256
     object Editar1: TMenuItem
       Caption = 'Editar'
       object Criarapartirdeumalista1: TMenuItem
@@ -235,6 +259,21 @@ object Form1: TForm1
       Caption = 'Duplicar'
       ShortCut = 16452
       OnExecute = ActDuplicarExecute
+    end
+    object actEnviar: TAction
+      Caption = 'Enviar (F9)'
+      ShortCut = 120
+      OnExecute = actEnviarExecute
+    end
+    object actImportar: TAction
+      Caption = 'Importar (F11)'
+      ShortCut = 122
+      OnExecute = actImportarExecute
+    end
+    object actConfigurar: TAction
+      Caption = 'Configurar (F12)'
+      ShortCut = 123
+      OnExecute = actConfigurarExecute
     end
   end
 end
